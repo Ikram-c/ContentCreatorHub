@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "content-creator-hub"
+version = "1.0.0"
+description = "Hardened GDPR-compliant ContentCreatorHub and Social Media Post Analyzer."
+requires-python = ">=3.11"
+dependencies = [
+    "PyYAML>=6.0.1",
+    "numpy>=1.26.0",
+    "Pillow>=10.3.0",
+    "azure-storage-blob>=12.19.0",
+    "google-cloud-storage>=2.16.0",
+]
+
+[project.scripts]
+content-creator-hub = "content_hub.server:main"
+
+[tool.setuptools.packages.find]
+include = ["content_hub*"]
+
+[tool.ruff]
+line-length = 79
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]

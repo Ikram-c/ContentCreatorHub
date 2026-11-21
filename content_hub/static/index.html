@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContentCreatorHub — Post Analyzer &amp; GDPR Studio</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="top-status-bar">
+    <div class="brand-group">
+      <span class="status-dot" id="slot-dot"></span>
+      <span class="brand-title">CONTENTCREATORHUB</span>
+      <span class="badge-pill" id="active-slot-badge">SLOT: BLUE</span>
+    </div>
+    <nav class="tab-nav" aria-label="ContentCreatorHub Sections">
+      <button type="button" class="tab-btn active" data-tab="tab-overview" id="nav-tab-overview">
+        CREATOR OVERVIEW
+      </button>
+      <button type="button" class="tab-btn" data-tab="tab-analyzer" id="nav-tab-analyzer">
+        POST ANALYZER
+      </button>
+      <button type="button" class="tab-btn" data-tab="tab-gdpr" id="nav-tab-gdpr">
+        GDPR &amp; OPS
+      </button>
+    </nav>
+    <div class="meta-group">
+      <span class="badge-pill" id="region-badge">REGION: UKSOUTH</span>
+    </div>
+  </header>
+
+  <section id="error-boundary-screen" class="error-boundary hidden" role="alert">
+    <div class="error-boundary-card">
+      <div class="error-header-row">
+        <span class="error-code-pill" id="err-status-badge">HTTP 500</span>
+        <button type="button" class="action-btn" id="dismiss-error-btn">DISMISS</button>
+      </div>
+      <h2 class="error-heading" id="err-title">Unexpected Application Boundary</h2>
+      <p class="error-message" id="err-message">A safe error boundary caught this request.</p>
+    </div>
+  </section>
+
+  <main class="main-container">
+    <section id="tab-overview" class="tab-panel active">
+      <div class="two-col-grid">
+        <div class="surface-card center-card">
+          <h1 class="card-heading">CREATOR PIPELINE ENGINE</h1>
+          <p class="card-sub">
+            HKDF-SHA256 PII Scrubbing, Multi-Platform Post Scoring &amp; Indexed SQLite Storage
+          </p>
+          <div class="circular-wrap">
+            <button type="button" class="circular-action-card" id="quick-analyze-trigger">
+              <span class="circle-main-label" id="circle-btn-title">ANALYZE SAMPLE</span>
+              <span class="circle-sub-label" id="circle-btn-sub">3 STAGES VERIFIED</span>
+            </button>
+          </div>
+          <div class="kpi-pair">
+            <div class="kpi-box">
+              <span class="kpi-label">LATEST SCORE</span>
+              <span class="kpi-value" id="overview-latest-score">0.0</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">SAVED ANALYSES</span>
+              <span class="kpi-value" id="overview-history-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-card">
+          <div class="card-header-row">
+            <h2 class="card-heading">PIPELINE STAGE &amp; HISTORY FEED</h2>
+            <span class="badge-pill" id="sandbox-provider-badge">LOCAL-OFFLINE</span>
+          </div>
+          <ul class="status-list" id="stage-status-cards">
+            <li class="list-item-card">
+              <span class="mono-label">pii_scrub_stage</span>
+              <span class="badge-pill">READY</span>
+            </li>
+          </ul>
+          <h3 class="sub-heading">RECENT CREATOR POST SCORES</h3>
+          <ul class="status-list" id="history-list-cards">
+            <li class="list-item-card">
+              <span class="muted-text">No post analyses recorded yet.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-analyzer" class="tab-panel hidden">
+      <div class="two-col-grid">
+        <div class="surface-card">
+          <div class="card-header-row">
+            <h2 class="card-heading">SOCIAL MEDIA POST ANALYZER</h2>
+            <span class="badge-pill" id="live-char-counter">0 CHARS</span>
+          </div>
+          <p class="card-sub">
+            Draft your post below. Emails, phone numbers, and IPv4 addresses are redacted before scoring.
+          </p>
+          <div class="form-group">
+            <label class="field-label" for="platform-select">Target Primary Channel</label>
+            <select id="platform-select" class="tactical-select">
+              <option value="linkedin_pro">LinkedIn Post (Max 3,000 chars)</option>
+              <option value="x_microblog">X / Microblog (Max 280 chars)</option>
+              <option value="instagram_caption">Instagram Caption (Max 2,200 chars)</option>
+              <option value="youtube_community">YouTube Community (Max 1,500 chars)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="post-draft-input">Post Draft Content</label>
+            <textarea
+              id="post-draft-input"
+              class="tactical-textarea"
+              rows="8"
+              placeholder="Write your hook, key takeaways, call-to-action, and hashtags..."
+            >How we cut API latency by 42% using a 3-step blueprint?
+First, index only high-frequency lookup keys.
+Second, validate every payload at the gateway.
+Bookmark this framework and share your thoughts below! #Engineering #CleanCode #Architecture</textarea>
+          </div>
+          <div class="action-row">
+            <button type="button" class="primary-btn" id="run-post-analysis-btn">
+              SCORE &amp; SAVE POST
+            </button>
+            <button type="button" class="action-btn" id="clear-draft-btn">
+              CLEAR DRAFT
+            </button>
+          </div>
+        </div>
+
+        <div class="surface-card">
+          <div class="card-header-row">
+            <h2 class="card-heading">ENGAGEMENT &amp; QUALITY BREAKDOWN</h2>
+            <span class="badge-pill" id="analyzer-tier-badge">TIER: STANDBY</span>
+          </div>
+
+          <div class="score-grid">
+            <div class="kpi-box">
+              <span class="kpi-label">COMPOSITE SCORE</span>
+              <span class="kpi-value" id="score-overall">0.0</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">HOOK IMPACT</span>
+              <span class="kpi-value" id="score-hook">0.0</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">READABILITY</span>
+              <span class="kpi-value" id="score-readability">0.0</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">SENTIMENT</span>
+              <span class="kpi-value" id="score-sentiment">0.0</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">HASHTAGS &amp; CTA</span>
+              <span class="kpi-value" id="score-hashtag-cta">0.0</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">AVG WORDS / SENT</span>
+              <span class="kpi-value" id="metric-avg-words">0.0</span>
+            </div>
+          </div>
+
+          <h3 class="sub-heading">MULTI-PLATFORM FIT MATRIX</h3>
+          <ul class="status-list" id="platform-matrix-list"></ul>
+
+          <h3 class="sub-heading">ACTIONABLE RECOMMENDATIONS</h3>
+          <ul class="status-list" id="recommendations-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-gdpr" class="tab-panel hidden">
+      <div class="two-col-grid">
+        <div class="surface-card">
+          <h2 class="card-heading">UK/EU GDPR &amp; PRE-DEPLOYMENT CONTROLS</h2>
+          <p class="card-sub">
+            Execute Article 17 Right to Erasure, TTL retention sweeps, 30-minute expiring reset links, and Blue-Green rollbacks.
+          </p>
+
+          <div class="form-group">
+            <label class="field-label" for="erasure-subject-input">
+              Article 17 Right to Erasure (Creator ID or 64-char HKDF Pseudonym)
+            </label>
+            <div class="inline-row">
+              <input
+                type="text"
+                id="erasure-subject-input"
+                class="tactical-input"
+                value="creator-alpha"
+                autocomplete="off"
+              />
+              <button type="button" class="danger-btn" id="gdpr-erase-btn">
+                ERASE SUBJECT
+              </button>
+            </div>
+          </div>
+
+          <div class="ops-btn-grid">
+            <button type="button" class="action-btn" id="gdpr-purge-btn">
+              PURGE EXPIRED TTL FILES
+            </button>
+            <button type="button" class="action-btn" id="reset-issue-btn">
+              ISSUE 30M RESET TOKEN
+            </button>
+            <button type="button" class="action-btn" id="reset-consume-btn">
+              TEST RESET TOKEN REPLAY
+            </button>
+            <button type="button" class="action-btn" id="deploy-stage-btn">
+              STAGE &amp; PROMOTE SLOT
+            </button>
+            <button type="button" class="action-btn" id="deploy-rollback-btn">
+              INSTANT SLOT ROLLBACK
+            </button>
+            <button type="button" class="action-btn" id="refresh-audit-btn">
+              VERIFY AUDIT CHAIN
+            </button>
+          </div>
+          <p class="muted-text" id="ops-feedback-line">Pre-deployment controls armed.</p>
+        </div>
+
+        <div class="surface-card">
+          <div class="card-header-row">
+            <h2 class="card-heading">SHA-256 HASH-CHAINED AUDIT LEDGER</h2>
+            <span class="badge-pill" id="audit-count-badge">0 EVENTS</span>
+          </div>
+          <pre class="audit-viewer" id="audit-ledger-viewer">Loading verified JSONL audit trail...</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bottom-status-bar">
+    <div class="conn-group">
+      <span class="status-dot" id="conn-dot"></span>
+      <span class="mono-label" id="conn-label">CONNECTED: 127.0.0.1:8080</span>
+    </div>
+    <div class="conn-group">
+      <span class="mono-label" id="security-summary-label">
+        BOLA: ACTIVE | CORS: LOCKED | RATE: 60/MIN | RESET TTL: 30M
+      </span>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+hub:
+  name: "ContentCreatorHub"
+  version: "1.0.0"
+  active_slot: "blue"
+  standby_slot: "green"
+  workspace_root: "./workspace"
+  sqlite_db_path: "./workspace/state/content_hub.db"
+  audit_log_path: "./workspace/audit/audit_log.jsonl"
+  alert_sink_path: "./workspace/audit/alerts.jsonl"
+  stages:
+    - "pii_scrub_stage"
+    - "post_analyzer_stage"
+    - "telemetry_persist_stage"
+
+security:
+  max_config_bytes: 524288
+  max_payload_bytes: 131072
+  max_post_chars: 10000
+  allowed_cors_origins:
+    - "http://127.0.0.1:8080"
+    - "http://localhost:8080"
+  rate_limit_max_requests: 60
+  rate_limit_window_seconds: 60
+  password_reset_ttl_seconds: 1800
+  log_ring_buffer_capacity: 256
+  log_max_message_chars: 240
+
+gdpr:
+  master_key_env_var: "CONTENT_HUB_GDPR_SECRET"
+  fallback_sandbox_secret: "content-hub-ephemeral-sandbox-secret-key"
+  key_rotation_epoch: "2026-Q4"
+  allowed_regions:
+    - "uksouth"
+    - "ukwest"
+    - "eu-west-1"
+    - "eu-west-2"
+  active_region: "uksouth"
+  retention_ttl_seconds: 86400
+  redaction_token: "[REDACTED_PII]"
+
+analyzer:
+  max_tokens_per_post: 1500
+  max_hashtags_analyzed: 64
+  ideal_hashtag_min: 2
+  ideal_hashtag_max: 5
+  hook_window_chars: 90
+  optimal_sentence_words_min: 8
+  optimal_sentence_words_max: 18
+  weight_hook: 0.30
+  weight_readability: 0.25
+  weight_sentiment: 0.25
+  weight_hashtag: 0.20
+  penalty_per_excess_hashtag: 8.0
+  penalty_spam_trigger: 15.0
+  base_neutral_score: 50.0
+  max_score_ceiling: 100.0
+  platforms:
+    x_microblog:
+      label: "X / Microblog"
+      max_chars: 280
+      ideal_chars: 220
+    linkedin_pro:
+      label: "LinkedIn Professional"
+      max_chars: 3000
+      ideal_chars: 1350
+    instagram_caption:
+      label: "Instagram Caption"
+      max_chars: 2200
+      ideal_chars: 450
+    youtube_community:
+      label: "YouTube Community"
+      max_chars: 1500
+      ideal_chars: 600
+  positive_lexicon:
+    - "build"
+    - "launch"
+    - "proven"
+    - "guide"
+    - "framework"
+    - "insight"
+    - "growth"
+    - "actionable"
+    - "clear"
+    - "lesson"
+    - "impact"
+    - "master"
+    - "open"
+    - "verified"
+  negative_lexicon:
+    - "broken"
+    - "fail"
+    - "mistake"
+    - "risk"
+    - "costly"
+    - "slow"
+    - "stuck"
+    - "error"
+    - "waste"
+    - "trap"
+  spam_triggers:
+    - "buy now"
+    - "guaranteed viral"
+    - "100% free"
+    - "click link"
+    - "dm me now"
+
+server:
+  host: "127.0.0.1"
+  port: 8080
+  poll_interval_ms: 5000
